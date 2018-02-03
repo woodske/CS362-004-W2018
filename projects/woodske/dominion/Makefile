@@ -47,11 +47,11 @@ tests.out: unittest1.c unittest2.c unittest3.c dominion.o rngs.o
 	gcov -b -c dominion.c >> tests.out
 	
 	echo "unittest3.c" >> tests.out
-	gcc -o unittest3 -g unittest2.c dominion.o rngs.o $(CFLAGS)
+	gcc -o unittest3 -g unittest3.c dominion.o rngs.o $(CFLAGS)
 	unittest3 >> tests.out
 	gcov -b -c dominion.c >> tests.out
 
 all: playdom player testDrawCard testBuyCard badTestDrawCard tests.out
 
 clean:
-	rm -f *.o unittest1 unittest2 playdom.exe playdom player player.exe badTestDrawCard *.gcov *.gcda *.gcno *.so *.out testDrawCard testDrawCard.exe tests.out
+	rm -f *.o unittest1 unittest2 unittest3 playdom.exe playdom player player.exe badTestDrawCard *.gcov *.gcda *.gcno *.so *.out testDrawCard testDrawCard.exe tests.out

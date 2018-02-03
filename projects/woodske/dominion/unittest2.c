@@ -119,15 +119,15 @@ int main() {
 
 
 				for (r = 0; r < handCount; r++) {
-					G.hand[p][r] = cardType;
+					G.hand[p][r] = gardens;
 				}
 
 				for (r = 0; r < discardCount; r++) {
-					G.discard[p][r] = cardType;
+					G.discard[p][r] = gardens;
 				}
 
 				for (r = 0; r < deckCount; r++) {
-					G.deck[p][r] = cardType;
+					G.deck[p][r] = gardens;
 				}
 
 				Gscore = scoreFor(p, &G);
