@@ -33,7 +33,7 @@ runtests: testDrawCard
 player: player.c interface.o
 	gcc -o player player.c -g  dominion.o rngs.o interface.o $(CFLAGS)
 
-tests.out: unittest1.c dominion.o rngs.o
+tests.out: unittest1.c unittest2.c unittest3.c dominion.o rngs.o
 	echo "Testing..." > tests.out
 
 	echo "unittest1.c:" >> tests.out
@@ -41,7 +41,17 @@ tests.out: unittest1.c dominion.o rngs.o
 	unittest1 >> tests.out
 	gcov -b -c dominion.c >> tests.out
 
+	echo "unittest2.c" >> tests.out
+	gcc -o unittest2 -g unittest2.c dominion.o rngs.o $(CFLAGS)
+	unittest2 >> tests.out
+	gcov -b -c dominion.c >> tests.out
+	
+	echo "unittest3.c" >> tests.out
+	gcc -o unittest3 -g unittest2.c dominion.o rngs.o $(CFLAGS)
+	unittest3 >> tests.out
+	gcov -b -c dominion.c >> tests.out
+
 all: playdom player testDrawCard testBuyCard badTestDrawCard tests.out
 
 clean:
-	rm -f *.o unittest1 playdom.exe playdom player player.exe badTestDrawCard *.gcov *.gcda *.gcno *.so *.out testDrawCard testDrawCard.exe tests.out
+	rm -f *.o unittest1 unittest2 playdom.exe playdom player player.exe badTestDrawCard *.gcov *.gcda *.gcno *.so *.out testDrawCard testDrawCard.exe tests.out
