@@ -105,9 +105,9 @@ int main() {
 **********************************/
 					
 					
-	for (handCount = 0; handCount < 11; handCount++) {
-		for (discardCount = 0; discardCount < 11; discardCount++) {
-			for (deckCount = 0; deckCount < 11; deckCount++) {
+	for (handCount = 0; handCount < 7; handCount++) {
+		for (discardCount = 0; discardCount < 7; discardCount++) {
+			for (deckCount = 0; deckCount < 7; deckCount++) {
 
 				printf("Test player %d with %d, %d, %d, cards in hand/discard/deck of type gardens:\n", p, handCount, discardCount, deckCount);
 
