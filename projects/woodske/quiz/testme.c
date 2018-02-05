@@ -16,7 +16,7 @@ char *inputString()
   // create string of length 6 filled with 5 random chars from TEST_CHARS and null terminated
   int i;
 
-  char string[6];
+  char *string = malloc(sizeof(char) * 6);
   string[5] = '\0';
 
   for (i = 0; i < 5; i++){
