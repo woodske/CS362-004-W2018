@@ -56,6 +56,7 @@ void testme()
       printf("error ");
       exit(200);
     }
+    free(s);
   }
 }
 
