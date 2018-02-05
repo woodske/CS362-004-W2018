@@ -1,8 +1,6 @@
-
 /*
  * Testing Adventurer
  */
-
 
 #include "dominion.h"
 #include "dominion_helpers.h"
@@ -33,7 +31,7 @@ int main() {
 	initializeGame(numPlayers, k, seed, &G);
 	memcpy(&testG, &G, sizeof(struct gameState));
 
-	printf("\n----------------- Testing Card: %s ----------------\n", TESTCARD);
+	printf("\n----------------- Testing Card: %s ----------------\n\n", TESTCARD);
 
 	// copy the game state to a test case
 	memcpy(&testG, &G, sizeof(struct gameState));
@@ -44,7 +42,7 @@ int main() {
 	testG.deck[thisPlayer][0] = silver;
 	testG.deckCount[thisPlayer] = 3;
 
-	// change player's hand to estate, estate, copper
+	// change player's hand to estate, estate, gold
 	testG.hand[thisPlayer][0] = estate;
 	testG.hand[thisPlayer][1] = estate;
 	testG.hand[thisPlayer][2] = gold;
@@ -56,15 +54,15 @@ int main() {
 	i = updateCoins(thisPlayer, &testG, bonus);
 	preCoinCount = testG.coins;
 
-	printf("Pre-Adventurer: handcount = %d, discard = %d, coins = %d\n", preHandCount, preDiscardCount, preCoinCount);
+	printf("Pre-%s:\t\t\t handcount = %d, discard = %d, coins = %d\n", TESTCARD, preHandCount, preDiscardCount, preCoinCount);
 	cardEffect(adventurer, choice1, choice2, choice3, &testG, handpos, &bonus);
 	i = updateCoins(thisPlayer, &testG, bonus);
 	postHandCount = testG.handCount[thisPlayer];
 	postDiscardCount = testG.discardCount[thisPlayer];
 	postCoinCount = testG.coins;
 
-	printf("Post-Adventurer: handcount = %d, discard = %d, coins = %d\n", postHandCount, postDiscardCount, postCoinCount);
-	printf("Expected Post-Adventurer: handcount = %d, discard = %d, coins = %d\n", preHandCount + 2, preDiscardCount + 1, preCoinCount + 3);
+	printf("Post-%s:\t\t handcount = %d, discard = %d, coins = %d\n", TESTCARD, postHandCount, postDiscardCount, postCoinCount);
+	printf("Expected Post-%s:\t handcount = %d, discard = %d, coins = %d\n", TESTCARD, preHandCount + 2, preDiscardCount + 1, preCoinCount + 3);
 
 	if (postHandCount == preHandCount +2 && postDiscardCount == preDiscardCount + 1 && postCoinCount == preCoinCount + 3) {
         printf(GRN "**********************TEST PASSED**********************\n\n" RESET);

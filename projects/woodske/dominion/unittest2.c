@@ -13,6 +13,9 @@
 #define GRN		"\x1B[32m"
 #define RESET	"\x1B[0m"
 
+//Set NOISY_TEST to 0 to remove printfs from output
+#define NOISY_TEST 0
+
 int main() {
 	int i;
 	int seed = 1000;
@@ -22,6 +25,8 @@ int main() {
 	int discardCount;
 	int deckCount;
 	int cardType;
+	int failedTest = 0;
+	int passedTest = 0;
 	int r, x, Gscore, Escore, cardValue;
 	int k[10] = {adventurer, council_room, feast, gardens, mine
 		, remodel, smithy, village, baron, great_hall};
@@ -40,9 +45,9 @@ int main() {
 		for (handCount = 0; handCount < 3; handCount++) {
 			for (discardCount = 0; discardCount < 3; discardCount++) {
 				for (deckCount = 0; deckCount < 3; deckCount++) {
-
+#if (NOISY_TEST == 1)
 					printf("Test player %d with %d, %d, %d, cards in hand/discard/deck of type %d:\n", p, handCount, discardCount, deckCount, cardType);
-
+#endif
 					memset(&G, 23, sizeof(struct gameState));   			// clear the game state
 					r = initializeGame(numPlayer, k, seed, &G); 			// initialize a new game
 					G.handCount[p] = handCount;                 			// set the number of cards on hand
@@ -84,9 +89,15 @@ int main() {
 						default:
 							break;
 					}
-						
+					
 					Escore = handCount * cardValue + discardCount * cardValue + deckCount * cardValue;
-				
+
+					if (Gscore == Escore)
+						passedTest++;
+					else
+						failedTest++;
+
+#if (NOISY_TEST == 1)
 					printf("G.scoreFor = %d, expected = %d\n", Gscore, Escore);
 					
 					if (Gscore == Escore) {
@@ -94,23 +105,28 @@ int main() {
 					} else {
 						printf(RED "**********************TEST FAILED**********************\n\n" RESET);
 					}
+#endif
 				}
 			}
 		}
 	}
+	printf("For Curse, Estate, Duchy, Province, Great Hall -- # Passed Tests: %d\t# Failed Tests: %d\n", passedTest, failedTest);
+	printf("Set NOISY_TEST to 1 to see testing output.\n\n");
 					
 					
 /*********************************
 *******Testing for Gardens *******
 **********************************/
 					
-					
+	passedTest = 0;
+	failedTest = 0;	
 	for (handCount = 0; handCount < 7; handCount++) {
 		for (discardCount = 0; discardCount < 7; discardCount++) {
 			for (deckCount = 0; deckCount < 7; deckCount++) {
 
+#if (NOISY_TEST == 1)
 				printf("Test player %d with %d, %d, %d, cards in hand/discard/deck of type gardens:\n", p, handCount, discardCount, deckCount);
-
+#endif
 				memset(&G, 23, sizeof(struct gameState));   			// clear the game state
 				r = initializeGame(numPlayer, k, seed, &G); 			// initialize a new game
 				G.handCount[p] = handCount;                 			// set the number of cards on hand
@@ -134,16 +150,26 @@ int main() {
 				int gardensScore = (handCount + discardCount + deckCount)/10;
 				Escore = handCount * gardensScore + discardCount * gardensScore + deckCount * gardensScore;
 
-				printf("G.scoreFor = %d, expected = %d\n", Gscore, Escore);
+				if (Gscore == Escore)
+					passedTest++;
+				else
+					failedTest++;
 
+#if (NOISY_TEST == 1)
+				printf("G.scoreFor = %d, expected = %d\n", Gscore, Escore);
 				if (Gscore == Escore) {
 					printf(GRN "**********************TEST PASSED**********************\n\n" RESET);
 				} else {
 					printf(RED "**********************TEST FAILED**********************\n\n" RESET);
 				}
+#endif
 			}
 		}
 	}
+
+	printf("For Gardens -- # Passed Tests: %d\t# Failed Tests: %d\n", passedTest, failedTest);
+	printf("Set NOISY_TEST to 1 to see testing output.\n\n");
+
 	return 0;
 }
 
