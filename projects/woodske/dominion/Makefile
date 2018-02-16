@@ -75,8 +75,33 @@ unittestresults.out: unittest1.c unittest2.c unittest3.c unittest4.c cardtest1.c
 	gcc -o cardtest4 cardtest4.c dominion.o rngs.o $(CFLAGS)
 	./cardtest4 >> unittestresults.out
 	gcov -b -c dominion.c >> unittestresults.out
+	
+assignment4: randomtestadventurer.c randomtestcard1.c randomtestcard2.c dominion.o rngs.o
+	echo "Result for running adventurer tests:" > randomtestadventurer.out
+	
+	echo "randomtestadventurer.c:" >> randomtestadventurer.out
+	gcc -o randomtestadventurer randomtestadventurer.c dominion.o rngs.o $(CFLAGS)
+	./randomtestadventurer >> randomtestadventurer.out
+	gcov -b -c dominion.c >> randomtestadventurer.out
+	cat dominion.c.gcov >> randomtestadventurer.out
+	
+	echo "Result for running 2 tests:" > randomtestcard1.out
+	
+	echo "randomtestcard1.c:" >> randomtestcard1.out
+	gcc -o randomtestcard1 randomtestcard1.c dominion.o rngs.o $(CFLAGS)
+	./randomtestcard1 >> randomtestcard1.out
+	gcov -b -c dominion.c >> randomtestcard1.out
+	cat dominion.c.gcov >> randomtestcard1.out
+	
+	echo "Result for running 3 tests:" > randomtestcard2.out
+	
+	echo "randomtestcard2.c:" >> randomtestcard2.out
+	gcc -o randomtestcard2 randomtestcard2.c dominion.o rngs.o $(CFLAGS)
+	./randomtestcard2 >> randomtestcard2.out
+	gcov -b -c dominion.c >> randomtestcard2.out
+	cat dominion.c.gcov >> randomtestcard2.out
 
-all: playdom player testDrawCard testBuyCard badTestDrawCard unittestresults.out
+all: playdom player testDrawCard testBuyCard badTestDrawCard unittestresults.out assignment4
 
 clean:
-	rm -f *.o unittest1 unittest2 unittest3 unittest4 cardtest1 cardtest2 cardtest3 cardtest4 playdom.exe playdom player player.exe badTestDrawCard *.gcov *.gcda *.gcno *.so *.out testDrawCard testDrawCard.exe unittestresults.out
+	rm -f *.o randomtestadventurer randomtestcard1 randomtestcard2 unittest1 unittest2 unittest3 unittest4 cardtest1 cardtest2 cardtest3 cardtest4 playdom.exe playdom player player.exe badTestDrawCard *.gcov *.gcda *.gcno *.so *.out testDrawCard testDrawCard.exe unittestresults.out
