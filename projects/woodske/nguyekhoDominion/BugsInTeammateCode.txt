@@ -1,0 +1,24 @@
+Kevin Woods
+CS362 - Winter 2018
+woodske@oregonstate.edu
+04 March 2018
+
+-What is is the bug?
+In function smithyEffect(), functioned failed for accurate post card hand count and discard/deck count in 99,994 cases out of 10,000. In all 10,000 cases the card did not produce the correct action count. See randomcardtest2.out for a detailed report.
+
+-How to reproduce the bug?
+Create an empty game structure and initialize it. Fill the hand/deck/discard decks with cards and execute the cardEffect function to invoke the smithy card. Count the number of cards in their respective piles pre and post smithy. 
+
+-Priority
+This is a high priority bug. Smithy cannot be played correctly until this is addressed. 
+
+Bug #2
+-What is the bug?
+In function adventurerEffect(), in 10,000 test cases adventurer failed to produce an accurate treasure count in 99,933 cases, an accurate discard/deck count in 99,937 cases, and an accurate action count in 10,000 cases. See randomtestadventurer.out for a detailed report.
+
+-How to reproduce the bug?
+Create an empty game structure and initialize it. Fill the hand/deck/discard decks with cards and execute the cardEffect function to invoke the adventurer card. Count the number of in their respective piles as well as the treasure counts pre and post smithy. 
+
+-Priority
+This is a high priority bug. Adventurer cannot be played correctly until this is addressed. 
+
